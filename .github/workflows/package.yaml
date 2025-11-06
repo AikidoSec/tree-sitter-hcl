@@ -10,7 +10,7 @@ concurrency:
 
 jobs:
   npm:
-    uses: ./.github/workflows/package-npm.yml
+    uses: ./.github/workflows/package-npm.yaml
     # secrets:
     #   NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
   # crates:
