@@ -29,7 +29,7 @@ on:
         type: boolean
       abi-version:
         description: The tree-sitter ABI version
-        default: "15"
+        default: "14"
         type: string
     # secrets:
     #   NODE_AUTH_TOKEN:
@@ -89,7 +89,7 @@ jobs:
       matrix:
         os:
           - "ubuntu-${{inputs.ubuntu-version}}"
-          - windows-latest
+          # - windows-latest
           - macos-latest
     steps:
       - name: Checkout repository
