@@ -43,6 +43,7 @@ jobs:
       - name: Run parser and binding tests
         uses: tree-sitter/parser-test-action@v2
         with:
+          abi-version: 14
           test-node: true
           test-rust: ${{runner.os == 'Linux'}}
       - name: Parse sample files
