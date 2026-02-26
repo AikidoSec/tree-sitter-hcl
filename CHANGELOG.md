@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.21.0 - 2025-11-06
+
+Downgrade tree-sitter to 0.21.0 which uses tree sitter ABI version 14
+
 ## 1.2.0 - 2025-06-15
 
 feat:

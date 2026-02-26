@@ -10,10 +10,7 @@
 //! }
 //! "#;
 //! let mut parser = tree_sitter::Parser::new();
-//! let language = tree_sitter_hcl::LANGUAGE;
-//! parser
-//!     .set_language(&language.into())
-//!     .expect("Error loading HCL parser");
+//! parser.set_language(&tree_sitter_hcl::language()).expect("Error loading HCL grammar");
 //! let tree = parser.parse(code, None).unwrap();
 //! assert!(!tree.root_node().has_error());
 //! ```
@@ -21,14 +18,18 @@
 //! [`Parser`]: https://docs.rs/tree-sitter/0.25.3/tree_sitter/struct.Parser.html
 //! [tree-sitter]: https://tree-sitter.github.io/
 
-use tree_sitter_language::LanguageFn;
+use tree_sitter::Language;
 
 extern "C" {
-    fn tree_sitter_hcl() -> *const ();
+    fn tree_sitter_hcl() -> Language;
 }
 
-/// The tree-sitter [`LanguageFn`] for this grammar.
-pub const LANGUAGE: LanguageFn = unsafe { LanguageFn::from_raw(tree_sitter_hcl) };
+/// Returns the tree-sitter [Language][] for this grammar.
+///
+/// [Language]: https://docs.rs/tree-sitter/*/tree_sitter/struct.Language.html
+pub fn language() -> Language {
+    unsafe { tree_sitter_hcl() }
+}
 
 /// The content of the [`node-types.json`] file for this grammar.
 ///
@@ -41,7 +42,7 @@ mod tests {
     fn test_can_load_grammar() {
         let mut parser = tree_sitter::Parser::new();
         parser
-            .set_language(&super::LANGUAGE.into())
+            .set_language(&super::language())
             .expect("Error loading HCL parser");
     }
 }
