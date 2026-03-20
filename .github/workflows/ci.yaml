@@ -32,14 +32,40 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest] # didn't fix ci for windows-latest
+        os: [ubuntu-latest, windows-latest, macos-latest]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Set up tree-sitter
-        uses: tree-sitter/setup-action/cli@v1
+        uses: tree-sitter/setup-action/cli@v2
         with:
           tree-sitter-ref: v0.21.0
+      - name: Set up Node.js 20
+        # Downgrade from defaults lts/* node (v22) to v20; see https://github.com/nodejs/node/issues/61165#issuecomment-3740255712
+        # Work-around for the following EISDOR error, which only happens on windows:
+        # Error: EISDIR: illegal operation on a directory, lstat 'D:'
+        #   at Object.realpathSync (node:fs:2756:25)
+        #   at toRealPath (node:internal/modules/helpers:61:13)
+        #   at Function._findPath (node:internal/modules/cjs/loader:733:24)
+        #   at Function._resolveFilename (node:internal/modules/cjs/loader:1369:27)
+        #   at defaultResolveImpl (node:internal/modules/cjs/loader:1025:19)
+        #   at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1030:22)
+        #   at Function._load (node:internal/modules/cjs/loader:1192:37)
+        #   at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+        #   at wrapModuleLoad (node:internal/modules/cjs/loader:237:24)
+        #   at Module.require (node:internal/modules/cjs/loader:1463:12) {
+        # errno: -4068,
+        # code: 'EISDIR',
+        # syscall: 'lstat',
+        # path: 'D:'
+        # }
+        #
+        # Node.js v22.22.0
+        # Failed to load grammar.js
+        if: runner.os == 'Windows'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
       - name: Run parser and binding tests
         uses: tree-sitter/parser-test-action@v2
         with:
