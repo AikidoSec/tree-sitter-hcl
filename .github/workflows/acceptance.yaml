@@ -9,7 +9,7 @@ jobs:
     - uses: cachix/install-nix-action@3e0e991ad23eecb3d772c65a89c0ab57adb858f6 # v14.1
       with:
         nix_path: nixpkgs=channel:nixos-unstable
-    - uses: dx-oss/nix-shell-action@v11
+    - uses: dx-oss/nix-shell-action@ad5e262cb5b03c7e06de4af71a8032f2201d55f7 # v11
       with:
         file: shell.nix
         script: tree-sitter test
