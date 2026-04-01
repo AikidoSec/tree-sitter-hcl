@@ -37,7 +37,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Set up tree-sitter
-        uses: tree-sitter/setup-action/cli@v2
+        uses: tree-sitter/setup-action/cli@eeb902ac2f1be576edc296309872cf476a209b7f # v2
         with:
           tree-sitter-ref: v0.21.0
       - name: Set up Node.js 20
@@ -67,13 +67,13 @@ jobs:
         with:
           node-version: '20'
       - name: Run parser and binding tests
-        uses: tree-sitter/parser-test-action@v2
+        uses: tree-sitter/parser-test-action@aba4a3de737f86f8ce83be38166a1ab521d4c960 # v2
         with:
           abi-version: 14
           test-node: true
           test-rust: ${{runner.os == 'Linux'}}
       - name: Parse sample files
-        uses: tree-sitter/parse-action@v4
+        uses: tree-sitter/parse-action@f44ffa94f802024f27e821a72e6f2f3efc5dd521 # v4
         id: parse-files
         with:
           files: |-
