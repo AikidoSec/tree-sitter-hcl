@@ -21,7 +21,7 @@
     }
   ],
   "metadata": {
-    "version": "0.21.1",
+    "version": "0.21.2",
     "license": "Apache-2.0",
     "description": "HCL and terraform grammar for tree-sitter",
     "links": {
