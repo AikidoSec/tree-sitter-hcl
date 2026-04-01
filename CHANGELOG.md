@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.21.2 - 2026-04-01
+
+Export grammar name on node bindings.
+
 ## 0.21.1 - 2026-03-20
 
 Include windows prebuilds
